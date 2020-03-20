@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -29,8 +30,20 @@ public class IndexController {
     }
 
     @PostMapping( "/create" )
-    public String addProduct(@ModelAttribute Product product ) {
+    public String addProduct( @ModelAttribute Product product ) {
         productService.create( product );
+        return "redirect:/";
+    }
+
+    @GetMapping( "/update/{id}" )
+    public String getUpdatePage( @PathVariable( "id" ) Long id, Model model ) {
+        model.addAttribute( "product", productService.read( id ) );
+        return "update";
+    }
+
+    @PostMapping( "/update" )
+    public String sendUpdateChanges( @ModelAttribute Product product ) {
+        productService.update( product );
         return "redirect:/";
     }
 }

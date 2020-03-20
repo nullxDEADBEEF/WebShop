@@ -20,4 +20,12 @@ public class ProductService {
     public void create( Product product ) {
         productRepository.create( product );
     }
+
+    public Product read( Long id ) {
+        return productRepository.read( id );
+    }
+
+    public boolean update( Product product ) {
+        return productRepository.update( product );
+    }
 }

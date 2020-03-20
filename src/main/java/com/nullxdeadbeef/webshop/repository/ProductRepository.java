@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ProductRepository {
+public class ProductRepository implements ICrudRepository<Product> {
 
     private List<Product> products = new ArrayList<>();
 
@@ -23,7 +23,38 @@ public class ProductRepository {
         return products;
     }
 
+    @Override
+    // TODO: figure out generation of id, so we can update later added products
     public void create( Product product ) {
         products.add( product );
+    }
+
+    @Override
+    public Product read( Long id ) {
+        int i = 0;
+        while ( i < products.size() ) {
+            if ( products.get( i ).getId().equals( id ) ) {
+                return products.get( i );
+            }
+            i++;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean update( Product product ) {
+        for ( int i = 0; i < products.size(); i++ ) {
+            if ( products.get( i ).getId().equals( product.getId() ) ) {
+                products.set( i, product );
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean delete( Long id ) {
+        return false;
     }
 }

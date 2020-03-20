@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 </head>
 <body>
+<h1>Add Product</h1>
 <form th:action="@{/create}" method="post">
-    <input type="text" name="name" placeholder="Product name">
-    <input type="text" name="price" placeholder="Product Price">
-    <input type="text" name="description" placeholder="Product Description">
-    <input type="submit" value="send">
+    <table>
+        <tr>
+            <td><input type="text" name="name" placeholder="Product name"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="price" placeholder="Product Price"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="description" placeholder="Product Description"></td>
+        </tr>
+    </table>
+    <input type="submit" class="btn btn-success" value="send">
 </form>
 </body>
 </html>

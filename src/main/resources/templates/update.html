@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Update Product</h1>
+<form th:action="@{/update}" method="post">
+    <table class="table">
+        <tr>
+            <td><input type="hidden" name="id" th:value="${product.id}"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="name" th:value="${product.name}" placeholder="Product name"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="price" th:value="${product.price}" placeholder="Product Price"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="description" th:value="${product.description}" placeholder="Product Description"></td>
+        </tr>
+    </table>
+    <input type="submit" class="btn btn-success" value="update">
+</form>
+</body>
+</html>
