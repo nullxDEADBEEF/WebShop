@@ -28,4 +28,8 @@ public class ProductService {
     public boolean update( Product product ) {
         return productRepository.update( product );
     }
+
+    public boolean delete( Long id ) {
+        return productRepository.delete( id );
+    }
 }

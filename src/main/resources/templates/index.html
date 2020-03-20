@@ -20,9 +20,8 @@
         <td th:text="${product.name}"></td>
         <td th:text="${product.price} + ' DKK'"></td>
         <td th:text="${product.description}"></td>
-        <td><a th:href="@{'/update/' + ${product.id}}" class="btn btn-info">
-            update</a>&nbsp;
-            <button class="btn btn-danger">delete</button></td>
+        <td><a th:href="@{'/update/' + ${product.id}}" class="btn btn-info">update</a>&nbsp;
+            <a th:href="@{'/delete/' + ${product.id}}" class="btn btn-danger">delete</a></td>
     </tr>
     </tbody>
 </table>

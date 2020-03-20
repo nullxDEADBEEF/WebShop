@@ -24,11 +24,17 @@ public class ProductRepository implements ICrudRepository<Product> {
     }
 
     @Override
+    /*
+    add product to product list
+     */
     // TODO: figure out generation of id, so we can update later added products
     public void create( Product product ) {
         products.add( product );
     }
 
+    /*
+    get specific product
+     */
     @Override
     public Product read( Long id ) {
         int i = 0;
@@ -41,6 +47,9 @@ public class ProductRepository implements ICrudRepository<Product> {
         return null;
     }
 
+    /*
+    update information on a product
+     */
     @Override
     public boolean update( Product product ) {
         for ( int i = 0; i < products.size(); i++ ) {
@@ -53,8 +62,18 @@ public class ProductRepository implements ICrudRepository<Product> {
         return false;
     }
 
+    /*
+    delete product from product list
+     */
     @Override
     public boolean delete( Long id ) {
+        for ( int i = 0; i < products.size(); i++ ) {
+            if ( products.get( i ).getId().equals( id ) ) {
+                products.remove( i );
+                return true;
+            }
+        }
+
         return false;
     }
 }

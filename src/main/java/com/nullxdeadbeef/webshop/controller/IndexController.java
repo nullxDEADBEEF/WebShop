@@ -46,4 +46,10 @@ public class IndexController {
         productService.update( product );
         return "redirect:/";
     }
+
+    @GetMapping( "/delete/{id}" )
+    public String delete( @PathVariable( "id" ) Long id ) {
+        productService.delete( id );
+        return "redirect:/";
+    }
 }
