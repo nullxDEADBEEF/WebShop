@@ -20,11 +20,12 @@ public class Product {
     public Product() {
     }
 
-    public Product( Long id, String name, double price, String description ) {
+    public Product( Long id, String name, double price, String description, Company company ) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
+        this.company = company;
     }
 
     public Long getId() {
@@ -57,5 +58,13 @@ public class Product {
 
     public void setDescription( String description ) {
         this.description = description;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany( Company company ) {
+        this.company = company;
     }
 }

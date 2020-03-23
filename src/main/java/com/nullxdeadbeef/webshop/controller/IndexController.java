@@ -1,6 +1,7 @@
 package com.nullxdeadbeef.webshop.controller;
 
 import com.nullxdeadbeef.webshop.model.Product;
+import com.nullxdeadbeef.webshop.service.CompanyService;
 import com.nullxdeadbeef.webshop.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +17,17 @@ public class IndexController {
 
 
     private final ProductService productService;
+    private final CompanyService companyService;
 
-    public IndexController( ProductService productService ) {
+    public IndexController( ProductService productService, CompanyService companyService ) {
         this.productService = productService;
+        this.companyService = companyService;
     }
 
     @GetMapping( "/" )
     public String getIndexPage( Model model ) {
         model.addAttribute( "products", productService.getProducts() );
+        model.addAttribute( "companies", companyService.getCompanies() );
         return "index";
     }
 
