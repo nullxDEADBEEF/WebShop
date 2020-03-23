@@ -2,7 +2,6 @@ package com.nullxdeadbeef.webshop.controller;
 
 import com.nullxdeadbeef.webshop.model.Product;
 import com.nullxdeadbeef.webshop.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class IndexController {
 
-    // As far as I understand @AutoWired removes the need for
-    // getters and setters????
-    @Autowired
-    ProductService productService;
+
+    private final ProductService productService;
+
+    public IndexController( ProductService productService ) {
+        this.productService = productService;
+    }
 
     @GetMapping( "/" )
     public String getIndexPage( Model model ) {
-        model.addAttribute( "products", productService.readProducts() );
+        model.addAttribute( "products", productService.getProducts() );
         return "index";
     }
 
@@ -37,7 +38,7 @@ public class IndexController {
 
     @GetMapping( "/update/{id}" )
     public String getUpdatePage( @PathVariable( "id" ) Long id, Model model ) {
-        model.addAttribute( "product", productService.read( id ) );
+        model.addAttribute( "product", productService.findById( id ) );
         return "update";
     }
 
@@ -49,7 +50,12 @@ public class IndexController {
 
     @GetMapping( "/delete/{id}" )
     public String delete( @PathVariable( "id" ) Long id ) {
-        productService.delete( id );
+        productService.deleteById( id );
         return "redirect:/";
+    }
+
+    @GetMapping( "/detail/{id}" )
+    public String productDetail( @PathVariable( "id" ) Long id, Model model ) {
+        return "product_detail";
     }
 }

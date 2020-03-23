@@ -1,11 +1,21 @@
 package com.nullxdeadbeef.webshop.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table( name = "products" )
 public class Product {
 
+    @Id
+    // let my MySQL give the next key
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
     private String name;
     private double price;
     private String description;
+
+    @ManyToOne( fetch = FetchType.EAGER )
+    private Company company;
 
     public Product() {
     }

@@ -2,34 +2,50 @@ package com.nullxdeadbeef.webshop.service;
 
 import com.nullxdeadbeef.webshop.model.Product;
 import com.nullxdeadbeef.webshop.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
-public class ProductService {
+public class ProductService implements IProductService {
 
-    @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    public List<Product> readProducts() {
-        return productRepository.getProducts();
+    public ProductService( ProductRepository productRepository ) {
+        this.productRepository = productRepository;
+    }
+
+    @Override
+    public List<Product> getProducts() {
+        List<Product> products = new ArrayList<>();
+
+        productRepository.findAll().iterator().forEachRemaining( products::add );
+        return products;
     }
 
     public void create( Product product ) {
-        productRepository.create( product );
+        productRepository.save( product );
     }
 
-    public Product read( Long id ) {
-        return productRepository.read( id );
+    public Optional<Product> findById(Long id ) {
+        return productRepository.findById( id );
     }
 
+    @Override
     public boolean update( Product product ) {
-        return productRepository.update( product );
+        List<Product> products = getProducts();
+
+        for ( int i = 0; i < products.size(); i++ ) {
+            if ( products.get( i ).getId().equals( product.getId() ) ) {
+                products.set( i, product );
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public boolean delete( Long id ) {
-        return productRepository.delete( id );
+    public void deleteById( Long id ) {
+        productRepository.deleteById( id );
     }
 }
