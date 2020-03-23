@@ -38,6 +38,7 @@ public class ProductService implements IProductService {
         for ( int i = 0; i < products.size(); i++ ) {
             if ( products.get( i ).getId().equals( product.getId() ) ) {
                 products.set( i, product );
+                productRepository.save( product );
                 return true;
             }
         }

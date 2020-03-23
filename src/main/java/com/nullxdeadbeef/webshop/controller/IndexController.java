@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Optional;
+
 @Controller
 public class IndexController {
 
@@ -38,7 +40,12 @@ public class IndexController {
 
     @GetMapping( "/update/{id}" )
     public String getUpdatePage( @PathVariable( "id" ) Long id, Model model ) {
-        model.addAttribute( "product", productService.findById( id ) );
+        Optional<Product> productOptional = productService.findById( id );
+        if ( !productOptional.isPresent() ) {
+            throw new RuntimeException( "Product not found" );
+        }
+        Product product = productOptional.get();
+        model.addAttribute( "product", product );
         return "update";
     }
 
