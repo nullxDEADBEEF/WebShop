@@ -17,15 +17,21 @@ public class Product {
     @ManyToOne( fetch = FetchType.EAGER )
     private Company company;
 
+    @OneToOne
+    private CompanyDescription companyDescription;
+
     public Product() {
     }
 
-    public Product( Long id, String name, double price, String description, Company company ) {
+    public Product( Long id, String name, double price, String description,
+                    Company company, CompanyDescription companyDescription ) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.company = company;
+        this.companyDescription = companyDescription;
+        companyDescription.setProduct( this );
     }
 
     public Long getId() {
@@ -66,5 +72,13 @@ public class Product {
 
     public void setCompany( Company company ) {
         this.company = company;
+    }
+
+    public CompanyDescription getCompanyDescription() {
+        return companyDescription;
+    }
+
+    public void setCompanyDescription( CompanyDescription companyDescription ) {
+        this.companyDescription = companyDescription;
     }
 }

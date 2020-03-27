@@ -1,6 +1,9 @@
 package com.nullxdeadbeef.webshop.controller;
 
+import com.nullxdeadbeef.webshop.model.Company;
+import com.nullxdeadbeef.webshop.model.CompanyDescription;
 import com.nullxdeadbeef.webshop.model.Product;
+import com.nullxdeadbeef.webshop.service.CompanyDescriptionService;
 import com.nullxdeadbeef.webshop.service.CompanyService;
 import com.nullxdeadbeef.webshop.service.ProductService;
 import org.springframework.stereotype.Controller;
@@ -15,19 +18,20 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-
     private final ProductService productService;
     private final CompanyService companyService;
+    private final CompanyDescriptionService companyDescriptionService;
 
-    public IndexController( ProductService productService, CompanyService companyService ) {
+    public IndexController( ProductService productService, CompanyService companyService,
+                            CompanyDescriptionService companyDescriptionService ) {
         this.productService = productService;
         this.companyService = companyService;
+        this.companyDescriptionService = companyDescriptionService;
     }
 
     @GetMapping( "/" )
     public String getIndexPage( Model model ) {
         model.addAttribute( "products", productService.getProducts() );
-        model.addAttribute( "companies", companyService.getCompanies() );
         return "index";
     }
 
@@ -65,8 +69,24 @@ public class IndexController {
         return "redirect:/";
     }
 
-    @GetMapping( "/detail/{id}" )
-    public String productDetail( @PathVariable( "id" ) Long id, Model model ) {
+    @GetMapping( "/details/{id}" )
+    public String getProductDetail( @PathVariable( "id" ) Long id, Model model ) {
+        Optional<Company> companyOptional = companyService.findById( id );
+        if ( !companyOptional.isPresent() ) {
+            throw new RuntimeException( "Expected company not found" );
+        }
+        Company company = companyOptional.get();
+        model.addAttribute( "company", company );
+
+        Optional<CompanyDescription> companyDescriptionOptional =
+                companyDescriptionService.findById( id );
+        if ( !companyDescriptionOptional.isPresent() ) {
+            throw new RuntimeException( "Expected company description not found" );
+        }
+
+        CompanyDescription companyDescription = companyDescriptionOptional.get();
+        model.addAttribute( "company_desc", companyDescription );
+
         return "product_detail";
     }
 }

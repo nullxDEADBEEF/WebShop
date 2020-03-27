@@ -7,18 +7,18 @@
 </head>
 <body>
 <h1>Product Detail</h1>
-<table>
+<table class="table">
     <thead>
     <tr>
-        <th>Company</th>
+        <th>Company Name</th>
         <th>Company Description</th>
         <th>Categories</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>Company Name</td>
-        <td>Company Description</td>
+        <td th:text="${company.name}"></td>
+        <td th:text="${company_desc.description}"></td>
         <td>Categories</td>
     </tr>
     </tbody>

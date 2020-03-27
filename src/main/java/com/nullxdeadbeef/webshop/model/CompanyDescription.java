@@ -1,17 +1,21 @@
 package com.nullxdeadbeef.webshop.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+/*
+The company's description of the product
+ */
 @Entity
+@Table( name = "company_descriptions" )
 public class CompanyDescription {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
     private String description;
+
+    @OneToOne( cascade = CascadeType.ALL, mappedBy = "companyDescription")
+    private Product product;
 
     public CompanyDescription() {
     }
@@ -36,5 +40,13 @@ public class CompanyDescription {
 
     public void setDescription( String description ) {
         this.description = description;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct( Product product ) {
+        this.product = product;
     }
 }
