@@ -59,11 +59,13 @@ public class IndexController {
         }
         Product product = productOptional.get();
         model.addAttribute( "product", product );
+        model.addAttribute( "companies", companyService.getCompanies() );
         return "update";
     }
 
     @PostMapping( "/update" )
-    public String sendUpdateChanges( @ModelAttribute Product product ) {
+    public String sendUpdateChanges( @ModelAttribute Product product,
+                                     @ModelAttribute CompanyDescription companyDescription  ) {
         productService.update( product );
         return "redirect:/";
     }

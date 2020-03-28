@@ -13,13 +13,28 @@
             <td><input type="hidden" name="id" th:value="${product.id}"></td>
         </tr>
         <tr>
-            <td><input type="text" name="name" th:value="${product.name}" placeholder="Product name"></td>
+            <td><input class="form-control" type="text" name="name" th:value="${product.name}" placeholder="Product name"></td>
         </tr>
         <tr>
-            <td><input type="text" name="price" th:value="${product.price}" placeholder="Product Price"></td>
+            <td><input class="form-control"  type="text" name="price" th:value="${product.price}" placeholder="Product Price"></td>
         </tr>
         <tr>
-            <td><input type="text" name="description" th:value="${product.description}" placeholder="Product Description"></td>
+            <td><input class="form-control" type="text" name="description" th:value="${product.description}" placeholder="Product Description"></td>
+        </tr>
+        <tr>
+            <td>
+                <select class="form-control" name="company">
+                    <option disabled selected>Choose Company</option>
+                    <option th:each="company : ${companies}"
+                            th:field="*{product.company}"
+                            th:value="${company.id}"
+                            th:text="${company.name}"></option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input class="form-control" type="text" name="cDescription" th:value="${product.companyDescription.CDescription}"></td>
         </tr>
     </table>
     <input type="submit" class="btn btn-success" value="update">
