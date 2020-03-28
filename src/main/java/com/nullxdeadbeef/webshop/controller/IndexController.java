@@ -36,12 +36,17 @@ public class IndexController {
     }
 
     @GetMapping( "/create" )
-    public String getCreatePage() {
+    public String getCreatePage( Model model ) {
+        model.addAttribute( "companies", companyService.getCompanies() );
         return "create";
     }
 
+    // the name of the field inside companyDescription
     @PostMapping( "/create" )
-    public String addProduct( @ModelAttribute Product product ) {
+    public String addProduct( @ModelAttribute Product product,
+                              @ModelAttribute CompanyDescription companyDescription ) {
+        companyDescriptionService.create( companyDescription );
+        companyDescription.setProduct( product );
         productService.create( product );
         return "redirect:/";
     }
@@ -71,7 +76,13 @@ public class IndexController {
 
     @GetMapping( "/details/{id}" )
     public String getProductDetail( @PathVariable( "id" ) Long id, Model model ) {
-        Optional<Company> companyOptional = companyService.findById( id );
+        Optional<Product> productOptional = productService.findById( id );
+        if ( !productOptional.isPresent() ) {
+            throw new RuntimeException( "Expected product not found" );
+        }
+        Long companyId = productOptional.get().getCompany().getId();
+
+        Optional<Company> companyOptional = companyService.findById( companyId );
         if ( !companyOptional.isPresent() ) {
             throw new RuntimeException( "Expected company not found" );
         }

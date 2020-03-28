@@ -12,17 +12,17 @@ public class CompanyDescription {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
-    private String description;
+    private String cDescription;
 
-    @OneToOne( cascade = CascadeType.ALL, mappedBy = "companyDescription")
+    @OneToOne
     private Product product;
 
     public CompanyDescription() {
     }
 
-    public CompanyDescription( Long id, String description ) {
+    public CompanyDescription( Long id, String cDescription ) {
         this.id = id;
-        this.description = description;
+        this.cDescription = cDescription;
     }
 
     public Long getId() {
@@ -34,12 +34,12 @@ public class CompanyDescription {
     }
 
 
-    public String getDescription() {
-        return description;
+    public String getCDescription() {
+        return cDescription;
     }
 
-    public void setDescription( String description ) {
-        this.description = description;
+    public void setCDescription( String description ) {
+        this.cDescription = description;
     }
 
     public Product getProduct() {

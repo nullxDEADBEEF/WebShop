@@ -18,6 +18,20 @@
         <tr>
             <td><input type="text" name="description" placeholder="Product Description"></td>
         </tr>
+        <tr>
+            <td>
+                <select class="form-control" name="company">
+                    <option disabled selected>Choose Company</option>
+                    <option th:each="company : ${companies}"
+                            th:value="${company.id}"
+                            th:text="${company.name}"></option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="text" name="cDescription" placeholder="Company Description"></td>
+        </tr>
     </table>
     <input type="submit" class="btn btn-success" value="send">
 </form>

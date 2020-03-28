@@ -1,6 +1,8 @@
 package com.nullxdeadbeef.webshop.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table( name = "products" )
@@ -10,14 +12,19 @@ public class Product {
     // let my MySQL give the next key
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
+
     private String name;
+
+    @Min( 0 )
     private double price;
+
+    @Size( max = 250 )
     private String description;
 
     @ManyToOne( fetch = FetchType.EAGER )
     private Company company;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL, mappedBy = "product" )
     private CompanyDescription companyDescription;
 
     public Product() {
