@@ -1,5 +1,3 @@
-<!-- TODO: add categories choice -->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -21,7 +19,7 @@
     <tr>
         <td th:text="${company.name}"></td>
         <td th:text="${company_desc.CDescription}"></td>
-        <td>Categories</td>
+        <td th:each="category : ${categories}" th:text="${category.name}"></td>
     </tr>
     </tbody>
 </table>

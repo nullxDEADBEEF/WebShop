@@ -3,6 +3,7 @@ package com.nullxdeadbeef.webshop.controller;
 import com.nullxdeadbeef.webshop.model.Company;
 import com.nullxdeadbeef.webshop.model.CompanyDescription;
 import com.nullxdeadbeef.webshop.model.Product;
+import com.nullxdeadbeef.webshop.service.CategoryService;
 import com.nullxdeadbeef.webshop.service.CompanyDescriptionService;
 import com.nullxdeadbeef.webshop.service.CompanyService;
 import com.nullxdeadbeef.webshop.service.ProductService;
@@ -21,12 +22,14 @@ public class IndexController {
     private final ProductService productService;
     private final CompanyService companyService;
     private final CompanyDescriptionService companyDescriptionService;
+    private final CategoryService categoryService;
 
     public IndexController( ProductService productService, CompanyService companyService,
-                            CompanyDescriptionService companyDescriptionService ) {
+                            CompanyDescriptionService companyDescriptionService, CategoryService categoryService ) {
         this.productService = productService;
         this.companyService = companyService;
         this.companyDescriptionService = companyDescriptionService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping( "/" )
@@ -38,6 +41,7 @@ public class IndexController {
     @GetMapping( "/create" )
     public String getCreatePage( Model model ) {
         model.addAttribute( "companies", companyService.getCompanies() );
+        model.addAttribute( "categories", categoryService.getCategories() );
         return "create";
     }
 
@@ -60,6 +64,7 @@ public class IndexController {
         Product product = productOptional.get();
         model.addAttribute( "product", product );
         model.addAttribute( "companies", companyService.getCompanies() );
+        model.addAttribute( "categories", categoryService.getCategories() );
         return "update";
     }
 
@@ -99,6 +104,7 @@ public class IndexController {
 
         CompanyDescription companyDescription = companyDescriptionOptional.get();
         model.addAttribute( "company_desc", companyDescription );
+        model.addAttribute( "categories", productOptional.get().getCategories() );
 
         return "product_detail";
     }

@@ -32,6 +32,16 @@
         <tr>
             <td><input class="form-control" type="text" name="cDescription" placeholder="Company Description"></td>
         </tr>
+        <tr>
+            <td>
+                <select class="form-control" name="categories" multiple>
+                    <option disabled selected>Choose Categories</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+            </td>
+        </tr>
     </table>
     <input type="submit" class="btn btn-success" value="Send">
 </form>

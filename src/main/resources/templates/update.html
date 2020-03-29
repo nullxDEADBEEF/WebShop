@@ -36,6 +36,17 @@
         <tr>
             <td><input class="form-control" type="text" name="cDescription" th:value="${product.companyDescription.CDescription}"></td>
         </tr>
+        <tr>
+            <td>
+                <select class="form-control" name="categories"  multiple>
+                    <option disabled selected>Choose Categories</option>
+                    <option th:each="category : ${categories}"
+                            th:field="*{product.categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"></option>
+                </select>
+            </td>
+        </tr>
     </table>
     <input type="submit" class="btn btn-success" value="update">
 </form>

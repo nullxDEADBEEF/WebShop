@@ -3,6 +3,7 @@ package com.nullxdeadbeef.webshop.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table( name = "products" )
@@ -27,11 +28,18 @@ public class Product {
     @OneToOne( cascade = CascadeType.ALL, mappedBy = "product" )
     private CompanyDescription companyDescription;
 
+    @ManyToMany
+    @JoinTable( name = "product_category",
+                joinColumns = @JoinColumn( name = "product_id" ),
+                inverseJoinColumns = @JoinColumn( name = "category_id" ) )
+    List<Category> categories;
+
     public Product() {
     }
 
     public Product( Long id, String name, double price, String description,
-                    Company company, CompanyDescription companyDescription ) {
+                    Company company, CompanyDescription companyDescription,
+                    List<Category> categories ) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -39,6 +47,7 @@ public class Product {
         this.company = company;
         this.companyDescription = companyDescription;
         companyDescription.setProduct( this );
+        this.categories = categories;
     }
 
     public Long getId() {
@@ -87,5 +96,13 @@ public class Product {
 
     public void setCompanyDescription( CompanyDescription companyDescription ) {
         this.companyDescription = companyDescription;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories( List<Category> categories ) {
+        this.categories = categories;
     }
 }

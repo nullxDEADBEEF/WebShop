@@ -1,6 +1,7 @@
 package com.nullxdeadbeef.webshop.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table( name = "categories" )
@@ -10,6 +11,9 @@ public class Category {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
     private String name;
+
+    @ManyToMany( mappedBy = "categories" )
+    List<Product> products;
 
     public Category() {
     }
@@ -33,5 +37,13 @@ public class Category {
 
     public void setName( String name ) {
         this.name = name;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts( List<Product> products ) {
+        this.products = products;
     }
 }
